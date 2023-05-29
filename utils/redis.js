@@ -1,6 +1,5 @@
-import { createClient } from "redis";
-import { promisify } from "util"
-
+import { createClient } from 'redis';
+import { promisify } from 'util';
 
 class RedisClient {
   constructor() {
@@ -12,7 +11,7 @@ class RedisClient {
       this.isConnected = false;
     });
     this.client.on('connect', () => {
-      console.log('Redis client is connected')
+      console.log('Redis client is connected');
       this.isConnected = true;
     });
   }
@@ -22,7 +21,7 @@ class RedisClient {
   }
 
   async get(key) {
-    const getAsync = promisify(this.client.get).bind(this.client)
+    const getAsync = promisify(this.client.get).bind(this.client);
     const value = await getAsync(key);
     return value;
   }
