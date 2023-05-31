@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 class DBClient {
-  constructor () {
+  constructor() {
     const host = process.env.DB_HOST || 'localhost';
     const port = process.env.DB_PORT || 27017;
     const database = process.env.DB_DATABASE || 'files_manager';
@@ -15,7 +15,7 @@ class DBClient {
     this.connectMongodb();
   }
 
-  async createCollections () {
+  async createCollections() {
     const db = this.client.db('files_manager');
     const usersCollectionExists = await db.listCollections({ name: 'users' }).hasNext();
     const filesCollectionExists = await db.listCollections({ name: 'files' }).hasNext();
@@ -31,7 +31,7 @@ class DBClient {
     }
   }
 
-  async connectMongodb () {
+  async connectMongodb() {
     try {
       await this.client.connect();
       this.isMongoConnected = true;
@@ -41,11 +41,11 @@ class DBClient {
     }
   }
 
-  isAlive () {
+  isAlive() {
     return this.isMongoConnected;
   }
 
-  async nbUsers () {
+  async nbUsers() {
     const nbUsers = await this.client
       .db('files_manager')
       .collection('users')
@@ -53,7 +53,7 @@ class DBClient {
     return nbUsers;
   }
 
-  async nbFiles () {
+  async nbFiles() {
     const nbFiles = await this.client.db('files_manager').collection('files').countDocuments();
     return nbFiles;
   }
